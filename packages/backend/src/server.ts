@@ -4,6 +4,7 @@ dotenv.config({ path: __dirname + '/.env' });
 import { createServer } from 'http';
 import express, { json, Response, Request } from 'express';
 import cors from 'cors';
+import { initDatabase } from 'src/init';
 
 const app = express();
 const httpServer = createServer(app);
@@ -18,3 +19,5 @@ app.get('/', (req: Request, res: Response) => {
 httpServer.listen(process.env.PORT, () =>
 	console.log(`Server started on: ${process.env.DOMAIN}`)
 );
+
+initDatabase();
