@@ -1,4 +1,5 @@
 import { Dialect, Sequelize } from 'sequelize';
+import { loggerOnlyGlobal } from 'src/logs';
 
 interface DatabaseConfigOptions {
 	development: {
@@ -11,6 +12,8 @@ interface DatabaseConfigOptions {
 	};
 }
 export type ExpressModule = ReturnType<typeof expressModule>;
+
+const logger = loggerOnlyGlobal(__filename);
 
 export function expressModule() {
 	function getDatabaseConfig(): DatabaseConfigOptions {
@@ -44,9 +47,9 @@ export function expressModule() {
 	async function checkDatabaseConnection(sequelizeConnection: Sequelize) {
 		try {
 			await sequelizeConnection.authenticate();
-			console.log('Connection has been established successfully');
+			logger.info('Connection has been established successfully');
 		} catch (error) {
-			console.log('Unable to connect to database', error);
+			logger.error('Unable to connect to database', error);
 		}
 	}
 

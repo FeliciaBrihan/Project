@@ -5,6 +5,7 @@ import { createServer } from 'http';
 import express, { json, Response, Request } from 'express';
 import cors from 'cors';
 import { initDatabase } from 'src/init';
+import { loggerOnlyGlobal } from 'src/logs';
 
 const app = express();
 const httpServer = createServer(app);
@@ -16,8 +17,10 @@ app.get('/', (req: Request, res: Response) => {
 	return res.send('API');
 });
 
+const logger = loggerOnlyGlobal(__filename);
+
 httpServer.listen(process.env.PORT, () =>
-	console.log(`Server started on: ${process.env.DOMAIN}`)
+	logger.info(`Server started on: ${process.env.DOMAIN}`)
 );
 
 initDatabase();
