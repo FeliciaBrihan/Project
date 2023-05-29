@@ -4,8 +4,9 @@ dotenv.config({ path: __dirname + '/.env' });
 import { createServer } from 'http';
 import express, { json, Response, Request } from 'express';
 import cors from 'cors';
-import { initDatabase } from 'src/init';
+import { initDatabase, initExpressModule, initDatabaseModels } from 'src/init';
 import { loggerOnlyGlobal } from 'src/logs';
+import { sequelize } from 'src/global';
 
 const app = express();
 const httpServer = createServer(app);
@@ -24,3 +25,5 @@ httpServer.listen(process.env.PORT, () =>
 );
 
 initDatabase();
+initExpressModule(app);
+initDatabaseModels(sequelize);
