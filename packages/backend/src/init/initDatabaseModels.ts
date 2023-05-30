@@ -6,7 +6,10 @@ export async function initDatabaseModels(sequelize: Sequelize) {
 
 	async function addModels(sequelize: Sequelize) {
 		const { getModelProduct } = await import('src/modules/product/models/');
+		const { getModelBook } = await import('src/modules/book/models');
+
 		getModelProduct(sequelize);
+		getModelBook(sequelize)
 
 		await sequelize.sync();
 	}
