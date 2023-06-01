@@ -11,6 +11,6 @@ export async function initDatabaseModels(sequelize: Sequelize) {
 		getModelBook(sequelize);
 		getModelUser(sequelize);
 
-		await sequelize.sync({ force: true });
+		await sequelize.sync();
 	}
 }
